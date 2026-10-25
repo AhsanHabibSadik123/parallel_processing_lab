@@ -1,3 +1,17 @@
+// Problem_15: Implement the trapezoidal rule for numerical integration. Each MPI process calculates a portion of the integral, and MPI_Reduce combines the partial results. 
+// Sample Input
+// Number of processes: 4
+// Function: f(x) = x²
+// Lower limit = 0
+// Upper limit = 1
+// Number of intervals = 1000
+// Use the trapezoidal rule.
+// Sample Output
+// Numerical integral ≈ 0.333333
+// Exact integral     = 0.333333
+// Absolute error     ≈ 0.000000
+// Students should report partial integrals and repeat the experiment with different numbers of intervals.
+
 #include <iostream>
 #include <cmath>
 #include <mpi.h>

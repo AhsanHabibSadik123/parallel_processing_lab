@@ -1,3 +1,23 @@
+// Problem_10: Design a producer–consumer system where one or more MPI processes generate data and another process receives and processes the data using point-to-point communication. 
+// Sample Input
+// Number of processes: 3
+// P0 = Producer
+// P1 = Consumer
+// P2 = Consumer
+// Number of items = 8
+// Items: 10 20 30 40 50 60 70 80
+// Sample Output
+// P0 produced: 10
+// P1 consumed: 10
+// P0 produced: 20
+// P2 consumed: 20
+// P0 produced: 30
+// P1 consumed: 30
+// P0 produced: 40
+// P2 consumed: 40
+// ...
+// All 8 items processed successfully.
+
 #include <iostream>
 #include <mpi.h>
 using namespace std;

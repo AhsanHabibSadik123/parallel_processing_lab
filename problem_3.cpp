@@ -1,3 +1,19 @@
+// Problem_3: Implement a ring topology in which every MPI process sends a message to its next process and receives a message from its previous process. Measure the communication time for different message sizes.
+// Sample Input
+// Number of processes = 4
+// Initial value at P0 = 100
+// Communication: P0 → P1 → P2 → P3 → P0
+// Sample Output
+// P0 sends 100 to P1
+// P1 receives 100 from P0
+// P1 sends 100 to P2
+// P2 receives 100 from P1
+// P2 sends 100 to P3
+// P3 receives 100 from P2
+// P3 sends 100 to P0
+// P0 receives 100 from P3
+// Ring communication completed.
+
 #include <mpi.h>
 #include <iostream>
 using namespace std;

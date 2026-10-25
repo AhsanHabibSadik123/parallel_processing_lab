@@ -1,3 +1,22 @@
+// Problem_5: Distribute matrix rows from the root process to other processes using MPI_Send. Each process performs its portion of matrix multiplication and sends the result back to the root. 
+// Sample Input
+// Number of processes: 2
+// Matrix A:
+// 1 2
+// 3 4
+// Matrix B:
+// 5 6
+// 7 8
+// Sample Output
+// Matrix C = A × B
+// 19 22
+// 43 50
+
+// C[0][0] = 1×5 + 2×7 = 19
+// C[0][1] = 1×6 + 2×8 = 22
+// C[1][0] = 3×5 + 4×7 = 43
+// C[1][1] = 3×6 + 4×8 = 50
+
 #include <iostream>
 #include <mpi.h>
 using namespace std;

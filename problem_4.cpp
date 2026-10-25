@@ -1,3 +1,16 @@
+// Problem_4: Implement a ping-pong program between two MPI processes using MPI_Send and MPI_Recv. Test message sizes from a few bytes to several megabytes and analyze communication latency and bandwidth. 
+// Sample Input
+// Number of processes: 2
+// Number of iterations = 5
+// Message size = 1024 bytes
+// Sample Output
+// Message size      	: 1024 bytes
+// Iterations         	: 5
+// Total round trips	: 5
+// Average round-trip	: 0.000018 seconds
+// Average one-way    	: 0.000009 seconds
+// Repeat the experiment for 64 bytes, 256 bytes, 1 KB, 4 KB, 16 KB, 64 KB, and 1 MB.
+
 #include <iostream>
 #include <vector>
 #include <mpi.h>

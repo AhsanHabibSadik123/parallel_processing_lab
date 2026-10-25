@@ -1,3 +1,18 @@
+// Problem_7: Implement a distributed vector computation using MPI_Isend and MPI_Irecv. Compare its execution time with the equivalent blocking MPI_Send/MPI_Recv implementation. 
+// Sample Input
+// Number of processes: 2
+// Array size = 8
+// P0: 10 20 30 40 50 60 70 80
+// P1: 1 2 3 4 5 6 7 8
+// Each process exchanges its array using MPI_Isend and MPI_Irecv.
+// Sample Output
+// P0 received: 1 2 3 4 5 6 7 8
+// P1 received: 10 20 30 40 50 60 70 80
+// Nonblocking communication completed.
+// Sample performance:
+// Blocking communication time    = 0.000021 s
+// Nonblocking communication time = 0.000015 s
+
 #include <iostream>
 #include <mpi.h>
 using namespace std;

@@ -1,3 +1,19 @@
+// Problem_2: The root process distributes different rows of a matrix to worker processes using MPI_Send. Workers calculate the sum of their assigned rows and return the results using MPI_Recv. 
+// Sample Input
+// Number of processes: 4
+// Matrix:
+// 1  2  3  4
+// 5  6  7  8
+// 9  10 11 12
+// 13 14 15 16
+// Each process receives one row.
+// Sample Output
+// P0: Row = 1 2 3 4      		Sum = 10
+// P1: Row = 5 6 7 8      		Sum = 26
+// P2: Row = 9 10 11 12   	Sum = 42
+// P3: Row = 13 14 15 16  	Sum = 58
+// Total matrix sum = 136
+
 #include <mpi.h>
 #include <iostream>
 using namespace std;
