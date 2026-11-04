@@ -4,14 +4,17 @@
 # define N 512
 
 int main(int argc, char *argv[]){
+
     MPI_Init(&argc, &argv);
+
     int rank, size;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
     int matrix[N][N];
     int row[N];
-    int rows, cols;
+    int rows = 0, cols = 0;
+
     if(rank == 0){
         FILE *file = fopen("input.txt", "r");
         fscanf(file, "%d %d", &rows, &cols);
@@ -26,7 +29,6 @@ int main(int argc, char *argv[]){
     // share the rows and cols
     MPI_Bcast(&rows, 1, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(&cols, 1, MPI_INT, 0, MPI_COMM_WORLD);
-    
 
     int sum = 0;
     if(rank == 0){
@@ -39,27 +41,33 @@ int main(int argc, char *argv[]){
 
         printf("sum = %d", total);
         sum += total;
+
         for(int i = 1; i < rows; i++){
             MPI_Send(matrix[i], cols, MPI_INT, i, 0, MPI_COMM_WORLD);
         }
+
         int workerSum;
         for(int i = 1; i < rows; i++){
             MPI_Recv(&workerSum, 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);            
             sum += workerSum;
         }
-        printf("\n Total matrix sum = %d", sum);
+        printf("\nTotal matrix sum = %d\n", sum);
     }
     else{
-        MPI_Recv(&row, cols, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        MPI_Recv(row, cols, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
         int total = 0;
         printf("P%d: Row = ", rank);
         for(int i = 0; i < cols; i++){
             total += row[i];
             printf("%d ", row[i]);
         }
-        printf("sum = %d", total);
+
+        printf("sum = %d\n", total);
+
         MPI_Send(&total, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
     }
 
     MPI_Finalize();
+    return 0;
 }
