@@ -1,4 +1,5 @@
-// Problem_7: Implement a distributed vector computation using MPI_Isend and MPI_Irecv. Compare its execution time with the equivalent blocking MPI_Send/MPI_Recv implementation. 
+// Problem_7: Implement a distributed vector computation using MPI_Isend and MPI_Irecv. 
+// Compare its execution time with the equivalent blocking MPI_Send/MPI_Recv implementation. 
 // Sample Input
 // Number of processes: 2
 // Array size = 8
@@ -27,13 +28,6 @@ int main(int argc, char *argv[]) {
     const int N = 8;
     int A[N], B[N];
 
-    if (size != 2) {
-        if (rank == 0)
-            cout << "Run with 2 processes." << endl;
-        MPI_Finalize();
-        return 0;
-    }
-
     for (int i = 0; i < N; i++)
         A[i] = rank == 0 ? (i + 1) * 10 : i + 1;
 
@@ -41,6 +35,7 @@ int main(int argc, char *argv[]) {
 
     // Blocking communication
     MPI_Barrier(MPI_COMM_WORLD);
+    
     start = MPI_Wtime();
 
     MPI_Send(A, N, MPI_INT, 1 - rank, 0, MPI_COMM_WORLD);

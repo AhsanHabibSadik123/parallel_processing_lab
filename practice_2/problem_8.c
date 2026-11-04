@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <mpi.h>
+
+int main(int argc, char *argv[]){
+    MPI_Init(&argc, &argv);
+
+    int rank, size;
+    int send_data, recv_data;
+
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    send_data = (rank == 0) ? 100 : 200;
+
+    if (rank == 0)
+        printf("P0: Waiting to send 100\n");
+    else
+        printf("P1: Waiting to send 200\n");
+
+    MPI_Barrier(MPI_COMM_WORLD);
+
+    if(rank == 0){
+        MPI_Send(&send_data, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
+        MPI_Recv(&recv_data, 1, MPI_INT, 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    }else{
+        MPI_Send(&send_data, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
+        MPI_Recv(&recv_data, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    }
+
+    if(rank == 0){
+        printf("Unsafe communication completed (if no deadlock occurred).\n");
+    }
+
+    MPI_Barrier(MPI_COMM_WORLD);
+
+    // Corrected version: MPI_Sendrecv
+    MPI_Sendrecv(&send_data, 1, MPI_INT, 1 - rank, 1, 
+                 &recv_data, 1, MPI_INT, 1 - rank, 1, 
+                 MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    printf("P%d received %d\n", rank, recv_data);
+
+    if (rank == 0)
+        printf("Communication completed without deadlock.\n");
+
+    MPI_Finalize();
+    return 0;
+}
