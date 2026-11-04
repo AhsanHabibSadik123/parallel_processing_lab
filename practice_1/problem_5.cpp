@@ -1,4 +1,5 @@
-// Problem_5: Distribute matrix rows from the root process to other processes using MPI_Send. Each process performs its portion of matrix multiplication and sends the result back to the root. 
+// Problem_5: Distribute matrix rows from the root process to other processes using MPI_Send. 
+// Each process performs its portion of matrix multiplication and sends the result back to the root. 
 // Sample Input
 // Number of processes: 2
 // Matrix A:
